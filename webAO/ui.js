@@ -75,4 +75,18 @@ golden.registerComponent("template", function (container, componentState) {
   // container.setTitle(document.querySelector(`#${componentState.id} meta[name='frame-title']`).getAttribute("content"));
 });
 
+golden.on("componentCreated", (component)=>{
+  if(component.id == "client_wrapper"){
+    component.container.on('resize', ()=>{
+      if(document.querySelector`#client_background`.height+50 /*+50 because bars */ > (window.innerHeight*0.75) /* = 75vh*/){
+        document.querySelector`#client_icwrapper`.setAttribute("style","display:block;overflow-y:auto;")
+        document.querySelector`#client_iccontrols`.setAttribute("style","overflow-y:hidden;")
+      } else{
+        document.querySelector`#client_icwrapper`.setAttribute("style","")
+        document.querySelector`#client_iccontrols`.setAttribute("style","")
+      }
+    }) 
+  }
+})
+
 golden.init();
